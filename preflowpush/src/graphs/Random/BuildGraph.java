@@ -1,32 +1,42 @@
+package graphs.Random;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Random;
+
+public class BuildGraph {
+
     private void BuildGraph(String fileName, String directory, int vertices, int dense, int maxCapacity, int minCapacity)
     {
-     Random random = new Random();
-     try{
-         String dirName = directory;//           
-           if (dirName.equals ("")) {dirName = ".";}
+        Random random = new Random();
+        try{
+            String dirName = directory;//
+            if (dirName.equals ("")) {dirName = ".";}
 
-	       File outputfile = new File(dirName, fileName);
-                  int[][] Graph = new int[vertices][vertices];
-	              int n, m;
-	              
-                         for ( n = 0; n < vertices; n++)
-                          for ( m = n+1; m < vertices; m++)
-                          {
-                              int randomInt = (random.nextInt((maxCapacity-minCapacity+1))+minCapacity) ;
+            File outputfile = new File(dirName, fileName);
+            int[][] Graph = new int[vertices][vertices];
+            int n, m;
 
-                              int k =(int) (1000.0*Math.random()/10.0);
-                              int b = (k < dense) ? 1 : 0;
-                              if(b == 0)
-                              {
-                                  Graph[n][m] = Graph[m][n] = b;
-                              }
-                              else
-                              {
-                                Graph[n][m] = Graph[m][n] = randomInt;
-                              }
-                            }
-               			  
-                      
+            for ( n = 0; n < vertices; n++)
+                for ( m = n+1; m < vertices; m++)
+                {
+                    int randomInt = (random.nextInt((maxCapacity-minCapacity+1))+minCapacity) ;
+
+                    int k =(int) (1000.0*Math.random()/10.0);
+                    int b = (k < dense) ? 1 : 0;
+                    if(b == 0)
+                    {
+                        Graph[n][m] = Graph[m][n] = b;
+                    }
+                    else
+                    {
+                        Graph[n][m] = Graph[m][n] = randomInt;
+                    }
+                }
+
+
             PrintWriter output = new  PrintWriter(new FileWriter(outputfile));
 
             for(int x = 0; x < Graph.length; x++)
@@ -76,15 +86,16 @@
                         }
                     }
                 }
-                
+
             }
 
-         output.close();
-       } 
+            output.close();
+        }
         catch (IOException e)
-          {
+        {
             System.err.println("Error opening file" +e);
             return;
-          }
-     System.out.print("\nDone");
- }
+        }
+        System.out.print("\nDone");
+    }
+}
