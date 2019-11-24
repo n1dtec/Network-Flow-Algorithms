@@ -1,8 +1,10 @@
+package graphs;
 /*
  * Written by Ed Hong UWT Feb. 19, 2003.
  * Modified by Donald Chinn May 14, 2003.
  * Modified by Donald Chinn December 11, 2003.
- * Modified by Donald Chinn February 28, 2004. */
+ * Modified by Donald Chinn February 28, 2004.
+ */
 
 /**
  * Class that represents an edge in a graph.
