@@ -58,13 +58,14 @@ public class GraphInput {
             sTok = new StringTokenizer(line);
             n = sTok.countTokens();
             if (n==3) {
-                Double edgedata;
+                Double[] edgedata = new Double[2];
                 Vertex v1, v2;
                 String v1name, v2name;
 
                 v1name = sTok.nextToken();
                 v2name = sTok.nextToken();
-                edgedata = new Double(Double.parseDouble(sTok.nextToken()));
+                edgedata[0] = new Double(Double.parseDouble(sTok.nextToken()));
+                edgedata[1] = new Double(0);
                 v1 = (Vertex) table.get(v1name);
                 if (v1 == null) {
 //                      System.out.println("New vertex " + v1name);
