@@ -59,23 +59,34 @@ public class GraphInput {
             n = sTok.countTokens();
             if (n==3) {
                 Double[] edgedata = new Double[2];
+                Double[] vertexdata = new Double[2];
                 Vertex v1, v2;
                 String v1name, v2name;
 
                 v1name = sTok.nextToken();
                 v2name = sTok.nextToken();
-                edgedata[0] = new Double(Double.parseDouble(sTok.nextToken()));
-                edgedata[1] = new Double(0);
+                /*
+                    edgedata[0] - capacity of the edge
+                    edgedata[1] - flow of the edge
+                 */
+                edgedata[0] = Double.parseDouble(sTok.nextToken());
+                edgedata[1] = (double) 0;
+                /*
+                    vertexdata[0] - height of the vertex
+                    vertexdata[1] - excess flow of the vertex
+                 */
+                vertexdata[0] = (double) 0;
+                vertexdata[1] = (double) 0;
                 v1 = (Vertex) table.get(v1name);
                 if (v1 == null) {
 //                      System.out.println("New vertex " + v1name);
-                        v1 = sg.insertVertex(null, v1name);
+                        v1 = sg.insertVertex(vertexdata, v1name);
                         table.put(v1name, v1);
                 }
                 v2 = (Vertex) table.get(v2name);
                 if (v2 == null) {
 //                      System.out.println("New vertex " + v2name);
-                    v2 = sg.insertVertex(null, v2name);
+                    v2 = sg.insertVertex(vertexdata, v2name);
                     table.put(v2name, v2);
                 }
 //              System.out.println("Inserting edge (" + v1name + "," + v2name + ")" + edgedata);
