@@ -15,8 +15,8 @@ import java.util.*;
  */
 public class SimpleGraph {
 
-    LinkedList<Vertex> vertexList;
-    LinkedList<Edge> edgeList;
+    public LinkedList<Vertex> vertexList;
+    public LinkedList<Edge> edgeList;
 
     // Constructor
     public SimpleGraph() {
