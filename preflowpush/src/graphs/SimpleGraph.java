@@ -14,13 +14,31 @@ import java.util.*;
  */
 public class SimpleGraph {
 
-    LinkedList vertexList;
-    List<Edge> edgeList;
+    LinkedList<Vertex> vertexList;
+    LinkedList<Edge> edgeList;
 
     // Constructor
     public SimpleGraph() {
         this.vertexList = new LinkedList();
         this.edgeList = new LinkedList();
+    }
+
+    public SimpleGraph(SimpleGraph sourceGraph){
+        this.vertexList = new LinkedList();
+        this.edgeList = new LinkedList();
+        LinkedList<Vertex> V = sourceGraph.vertexList;
+        LinkedList<Edge> E = sourceGraph.edgeList;
+        HashMap<String, Vertex> hash = new HashMap<>();
+
+        for (Vertex v : V) {
+            Vertex vv = this.insertVertex(v.getData(), v.getName());
+            hash.put((String) vv.getName(), vv);
+        }
+
+        for (Edge e : E) {
+            this.insertEdge(hash.get((String) e.getFirstEndpoint().getName()),
+                    hash.get((String) e.getSecondEndpoint().getName()), new Integer((Integer) e.getData()), null);
+        }
     }
     
     /**
