@@ -1,4 +1,5 @@
-package graphs;/*
+package graphs;
+/*
  * Written by Ed Hong UWT Feb. 17, 2003.
  * Modified by Donald Chinn May 14, 2003.
  * Modified by Donald Chinn December 11, 2003.
@@ -8,7 +9,7 @@ import java.util.*;
 
 /**
  * A class that represents a graph.
- * 
+ *
  * @author edhong
  * @version 0.0
  */
@@ -40,7 +41,7 @@ public class SimpleGraph {
                     hash.get((String) e.getSecondEndpoint().getName()), new Integer((Integer) e.getData()), null);
         }
     }
-    
+
     /**
      * Return the vertex list of this graph.
      * @returns  vertex list of this graph
@@ -83,7 +84,7 @@ public class SimpleGraph {
      * @param name  a name to be associated with the new vertex
      * @returns  the new vertex
      */
-    public Vertex insertVertex(Integer data, Object name) {
+    public Vertex insertVertex(Object data, Object name) {
         Vertex v;
         v = new Vertex(data, name);
         vertexList.addLast(v);
@@ -98,22 +99,12 @@ public class SimpleGraph {
      * @param name  name to be associated with the new edge
      * @returns  the new edge
      */
-    public Edge insertEdge(Vertex v, Vertex w, Integer data, Object name) {
+    public Edge insertEdge(Vertex v, Vertex w, Object data, Object name) {
         Edge e;
         e = new Edge(v, w, data, name);
-        edgeList.add(e);
-        v.incidentEdgeList.add(e);
-        w.incidentEdgeList.add(e);
-        return e;
-    }
-
-    //Use this method to add an edge with some flow
-    public Edge insertEdge(Vertex v, Vertex w, Integer data, Integer flow, Object name) {
-        Edge e;
-        e = new Edge(v, w, data, flow, name);
-        edgeList.add(e);
-        v.incidentEdgeList.add(e);
-        w.incidentEdgeList.add(e);
+        edgeList.addLast(e);
+        v.incidentEdgeList.addLast(e);
+        //w.incidentEdgeList.addLast(e);
         return e;
     }
 
@@ -127,7 +118,7 @@ public class SimpleGraph {
      */
     public Vertex opposite(Vertex v, Edge e) {
         Vertex w;
-        
+
         if (e.getFirstEndpoint() == v) {
             w= e.getSecondEndpoint();
         }
@@ -136,10 +127,10 @@ public class SimpleGraph {
         }
         else
             w = null;
-        
+
         return w;
     }
-    
+
     /**
      * Return the number of vertices in this graph.
      * @returns  the number of vertices
@@ -193,7 +184,7 @@ public class SimpleGraph {
             v = (Vertex) i.next();
             System.out.println("Vertex "+v.getName());
             Iterator j;
-            
+
             for (j = G.incidentEdges(v); j.hasNext();) {
                 e = (Edge) j.next();
                 System.out.println("  found edge " + e.getName());
@@ -217,7 +208,3 @@ public class SimpleGraph {
 
     }
 }
-
-
-
-
