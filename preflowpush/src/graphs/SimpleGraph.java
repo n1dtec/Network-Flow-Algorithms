@@ -15,7 +15,7 @@ import java.util.*;
 public class SimpleGraph {
 
     LinkedList vertexList;
-    LinkedList edgeList;
+    List<Edge> edgeList;
 
     // Constructor
     public SimpleGraph() {
@@ -65,7 +65,7 @@ public class SimpleGraph {
      * @param name  a name to be associated with the new vertex
      * @returns  the new vertex
      */
-    public Vertex insertVertex(Object data, Object name) {
+    public Vertex insertVertex(Integer data, Object name) {
         Vertex v;
         v = new Vertex(data, name);
         vertexList.addLast(v);
@@ -80,12 +80,22 @@ public class SimpleGraph {
      * @param name  name to be associated with the new edge
      * @returns  the new edge
      */
-    public Edge insertEdge(Vertex v, Vertex w, Object data, Object name) {
+    public Edge insertEdge(Vertex v, Vertex w, Integer data, Object name) {
         Edge e;
         e = new Edge(v, w, data, name);
-        edgeList.addLast(e);
-        v.incidentEdgeList.addLast(e);
-        w.incidentEdgeList.addLast(e);
+        edgeList.add(e);
+        v.incidentEdgeList.add(e);
+        w.incidentEdgeList.add(e);
+        return e;
+    }
+
+    //Use this method to add an edge with some flow
+    public Edge insertEdge(Vertex v, Vertex w, Integer data, Integer flow, Object name) {
+        Edge e;
+        e = new Edge(v, w, data, flow, name);
+        edgeList.add(e);
+        v.incidentEdgeList.add(e);
+        w.incidentEdgeList.add(e);
         return e;
     }
 

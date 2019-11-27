@@ -58,8 +58,8 @@ public class GraphInput {
             sTok = new StringTokenizer(line);
             n = sTok.countTokens();
             if (n==3) {
-                Double[] edgedata = new Double[2];
-                Double[] vertexdata = new Double[2];
+                Integer edgedata;
+                Integer vertexdata;
                 Vertex v1, v2;
                 String v1name, v2name;
 
@@ -69,14 +69,12 @@ public class GraphInput {
                     edgedata[0] - capacity of the edge
                     edgedata[1] - flow of the edge
                  */
-                edgedata[0] = Double.parseDouble(sTok.nextToken());
-                edgedata[1] = (double) 0;
+                edgedata = Integer.parseInt(sTok.nextToken());
                 /*
                     vertexdata[0] - height of the vertex
                     vertexdata[1] - excess flow of the vertex
                  */
-                vertexdata[0] = (double) 0;
-                vertexdata[1] = (double) 0;
+                vertexdata = null;
                 v1 = (Vertex) table.get(v1name);
                 if (v1 == null) {
 //                      System.out.println("New vertex " + v1name);
