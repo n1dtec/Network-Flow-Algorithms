@@ -24,7 +24,8 @@ public class Edge {
     /** the second endpoint of the edge */
     private Vertex v2;
     
-    private Object data;  // an object associated with this edge
+    private Integer data;  // the capacity associated with this edge
+    private Integer flow;  // the flow associated with an edge
     private Object name;  // a name associated with this edge
     
     /**
@@ -35,8 +36,16 @@ public class Edge {
      * @param data  data to be associated with this edge
      * @param name  a name to be associated with this edge
      */
-    public Edge (Vertex v, Vertex w, Object data, Object name) {
+    public Edge (Vertex v, Vertex w, Integer data, Object name) {
         this.data = data;
+        this.name = name;
+        this.v1 = v;
+        this.v2 = w;
+    }
+
+    public Edge (Vertex v, Vertex w, Integer data, Integer flow,  Object name) {
+        this.data = data;
+        this.flow = flow;
         this.name = name;
         this.v1 = v;
         this.v2 = w;
@@ -62,7 +71,7 @@ public class Edge {
      * Return the data associated with this edge.
      * @return  the data of this edge
      */
-    public Object getData() {
+    public Integer getData() {
         return this.data;
     }
         
@@ -70,8 +79,24 @@ public class Edge {
      * Set the data associated with this edge.
      * @param data  the data of this edge
      */
-    public void setData(Object data) {
+    public void setData(Integer data) {
         this.data = data;
+    }
+
+    /**
+     * Return the flow associated with this edge.
+     * @return  the flow of this edge
+     */
+    public Integer getFlow() {
+        return this.flow;
+    }
+
+    /**
+     * Set the flow associated with this edge.
+     * @param flow  the data of this edge
+     */
+    public void setFlow(Integer flow) {
+        this.flow = flow;
     }
     
     /**

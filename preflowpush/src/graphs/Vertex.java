@@ -20,18 +20,20 @@ import java.util.*;
  */
 public class Vertex {
     /** the edge list for this vertex */
-    LinkedList incidentEdgeList;
+    public List<Edge> incidentEdgeList;
 
-    private Object data;              // an object associated with this vertex
-    private Object name;              // a name associated with this vertex
+    private Integer data;               // an data associated with this vertex
+    private Integer height;             // the height of a vertex
+    private Integer e_flow;             // the excess flow of a vertex
+    private Object name;            // a name associated with this vertex
     
     /**
      * Constructor that allows data and a name to be associated
      * with the vertex.
-     * @param data     an object to be associated with this vertex
+     * @param data     a data to be associated with this vertex
      * @param name     a name to be associated with this vertex
      */
-    public Vertex(Object data, Object name) {
+    public Vertex(Integer data, Object name) {
         this.data = data;
         this.name = name;
         this.incidentEdgeList = new LinkedList();
@@ -49,7 +51,7 @@ public class Vertex {
      * Return the data associated with this vertex.
      * @return  the data of this vertex
      */
-    public Object getData() {
+    public Integer getData() {
         return this.data;
     }
     
@@ -57,7 +59,39 @@ public class Vertex {
      * Set the data associated with this vertex.
      * @param data  the data of this vertex
      */
-    public void setData(Object data) {
+    public void setData(Integer data) {
         this.data = data;
+    }
+
+    /**
+     * Return the height associated with this vertex.
+     * @return  the height of this vertex
+     */
+    public Integer getHeight() {
+        return this.height;
+    }
+
+    /**
+     * Set the height associated with this vertex.
+     * @param height the data of this vertex
+     */
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    /**
+     * Return the excess flow associated with this vertex.
+     * @return  the excess flow of this vertex
+     */
+    public int getExcessFlow() {
+        return this.e_flow;
+    }
+
+    /**
+     * Set the data associated with this vertex.
+     * @param e_flow  the data of this vertex
+     */
+    public void setExcessFlow(int e_flow) {
+        this.e_flow = e_flow;
     }
 }
