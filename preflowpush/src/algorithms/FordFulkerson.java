@@ -208,13 +208,13 @@ public class FordFulkerson {
     }
 
     // helper method
-    public static String calculateMaximumFlow(SimpleGraph theSimpleGraph)
+    public static String calculateMaxFlow(SimpleGraph theSimpleGraph)
     {
-        return calculateMaximumFlow(theSimpleGraph, "s", "t");
+        return calculateMaxFlow(theSimpleGraph, "s", "t");
     }
 
     // calculates the maximum flow
-    public static String calculateMaximumFlow(SimpleGraph theSimpleGraph, String theSource, String theSink) {
+    public static String calculateMaxFlow(SimpleGraph theSimpleGraph, String theSource, String theSink) {
         int maxflow = 0;
 
         // these will store the start time and the end time to compute a final running time
@@ -237,8 +237,7 @@ public class FordFulkerson {
         // Current Time at the end of finding maxFlow
         stop = System.currentTimeMillis();
 
-        return "Runtime: " + (stop - start) + " ms Max Flow: " + maxflow;
-
+        return "Runtime: " + (stop - start) + " ms" + "	Max Flow: " + maxflow;
     }
 }
 
