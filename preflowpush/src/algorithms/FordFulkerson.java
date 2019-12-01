@@ -1,84 +1,110 @@
 package algorithms;
 
 import java.util.*;
-//import static testFFa.GraphInput.LoadSimpleGraph;
-//import testFFa.Vertex.*;
-/**
- *
- * @author Vishaal
- */
 
 import graphs.Edge;
 import graphs.SimpleGraph;
 import graphs.Vertex;
 
+// COURSE: TCSS 543
+// INSTRUCTOR: KA YEE YEUNG
+// ASSIGNMENT: Final Project
+// AUTHOR: Richard Brun
+// VERSION: 1.0
+
 public class FordFulkerson {
 
+    //the ArrayList will contain all the vertices of a graph
+    private static final ArrayList vertices = new ArrayList();
+    //the source node
+    private static String source;
+    //the sink node
+    private static String sink;
 
-    private static final ArrayList vertices = new ArrayList(); //contains all the vertices of the graph
-    private static String source; //the source node
-    private static String sink; //the sink node
-
-    //The following function computes the max-flow of the given graph from all the possible augmented paths
-    public static int computeMaxFlow(Hashtable inputGraph)
+    //This function will compute the max-flow of a graph from all possible augmented paths
+    public static int theMaximumFlow(Hashtable theGraph)
     {
+        // set initial flow to zero
         int maxflow = 0;
+
+        // these will store the vertices of the graph
         String u,v;
-        Hashtable residualGraph = new Hashtable(); //residual graph
+
+        // using a hashtable to store the values of the constructed residual graph
+        Hashtable theResidualGraph = new Hashtable();
+
         try
         {
-            getVertices(inputGraph);
-            residualGraph = inputGraph;
-            Hashtable parent = new Hashtable(); //contains the parent node of each nodes
-            while(augumentPath(residualGraph,parent))
+            getAllVertices(theGraph);
+            theResidualGraph = theGraph;
+
+            //this will contain the parent node of each nodes
+            Hashtable theParentNode = new Hashtable();
+
+            // this loop will go through all possible augmented paths with BFS
+            while(theAugumentedPath(theResidualGraph,theParentNode))
             {
-                int temp = Integer.MAX_VALUE;
-                for(v=sink;!v.equalsIgnoreCase(source);v=(String)parent.get(v))
+                // store the maximum value of augmented path
+                int theTemp = Integer.MAX_VALUE;
+
+                // as long as sink does not equal the source execute
+                for(v=sink;!v.equalsIgnoreCase(source);v=(String)theParentNode.get(v))
                 {
-                    u = (String)parent.get(v);
-                    int t1 = getResValue(u, v, residualGraph);
-                    temp = Math.min(t1, temp); //bottle neck of for the given augmented path
+                    //
+                    u = (String)theParentNode.get(v);
+                    int t1 = getResidualValues(u, v, theResidualGraph);
+
+                    // the is the bottle neck of the given augmented path
+                    theTemp = Math.min(t1, theTemp);
                 }
-                for(v=sink;!v.equalsIgnoreCase(source);v=(String)parent.get(v))
+                for(v=sink;!v.equalsIgnoreCase(source);v=(String)theParentNode.get(v))
                 {
-                    u =(String)parent.get(v);
-                    setResidualValues(u,v,temp,residualGraph); //updates the residual graph
+                    u =(String)theParentNode.get(v);
+                    //this will update the residual graph
+                    setResidualValuesToCurrent(u,v,theTemp,theResidualGraph);
                 }
-                maxflow += temp;
+                maxflow += theTemp;
             }
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
+
         return maxflow;
     }
 
     //the following function finds the possible augmented paths from source to the sink using BFS
-    public static Boolean augumentPath(Hashtable inputGraph, Hashtable parent)
+    public static Boolean theAugumentedPath(Hashtable theInputGraph, Hashtable theParent)
     {
-        Hashtable visited = new Hashtable(); //contains the visited state of a node
+        // Hashtable will contain the visited state of nodes
+        Hashtable theVisitedNodes = new Hashtable();
         try
         {
             for(int i=0;i<vertices.size();i++)
             {
-                visited.put(vertices.get(i), false); //intially setting the visited state of all the node to false
+                // Set state of all visited nodes to false
+                theVisitedNodes.put(vertices.get(i), false);
             }
-            LinkedList que = new LinkedList();
-            que.add(source);
-            visited.replace(source, true);
-            parent.put(source, -1);
-            while(!que.isEmpty())
+
+            // the linked list is used to store edges of the path that can be used and setting them to true
+            LinkedList theQueue = new LinkedList();
+            theQueue.add(source);
+            theVisitedNodes.replace(source, true);
+            theParent.put(source, -1);
+            while(!theQueue.isEmpty())
             {
-                String head = (String)que.poll(); //element at the top of the que
-                for(Enumeration en = inputGraph.keys();en.hasMoreElements();)
+                // the element at the top of the queue
+                String theHead = (String)theQueue.poll();
+
+                for(Enumeration en = theInputGraph.keys();en.hasMoreElements();)
                 {
                     String key = (String)en.nextElement();
-                    if((boolean)visited.get(key)==false && getResValue(head,key,inputGraph) > 0)
+                    if((boolean)theVisitedNodes.get(key)==false && getResidualValues(theHead,key,theInputGraph) > 0)
                     {
-                        que.add(key);
-                        parent.put(key, head);
-                        visited.put(key,true);
+                        theQueue.add(key);
+                        theParent.put(key, theHead);
+                        theVisitedNodes.put(key,true);
                     }
                 }
             }
@@ -87,45 +113,45 @@ public class FordFulkerson {
         {
             e.printStackTrace();
         }
-        return ((boolean)visited.get(sink));
+        return ((boolean)theVisitedNodes.get(sink));
     }
 
-    //the following function updates the residual graph
-    public static void setResidualValues(String u, String v, int val, Hashtable inputGraph)
+    //this function will update the residual graph
+    public static void setResidualValuesToCurrent(String u, String v, int theValue, Hashtable theInputGraph)
     {
         try
         {
             //forward edge value from the residual graph for the given edge
-            Vertex vertex = (Vertex)inputGraph.get(u);
-            LinkedList linkedList = vertex.incidentEdgeList;
-            Iterator it = (Iterator)linkedList.iterator();
-            while(it.hasNext())
+            Vertex theVertex = (Vertex)theInputGraph.get(u);
+            LinkedList theLinkedList = theVertex.incidentEdgeList;
+            Iterator theIterator = (Iterator)theLinkedList.iterator();
+            while(theIterator.hasNext())
             {
-                Edge edge = (Edge)it.next();
-                Vertex secondVertex = (Vertex)edge.getSecondEndpoint();
-                String secondVertexName = (String)secondVertex.getName();
-                if(secondVertexName.equalsIgnoreCase(v))
+                Edge theEdge = (Edge)theIterator.next();
+                Vertex theSecondVertex = (Vertex)theEdge.getSecondEndpoint();
+                String theSecondVertexName = (String)theSecondVertex.getName();
+                if(theSecondVertexName.equalsIgnoreCase(v))
                 {
-                    int tempVal = (int)edge.getData();
-                    tempVal -= val;
-                    edge.setData(tempVal);
+                    int tempValue = (int)theEdge.getData();
+                    tempValue -= theValue;
+                    theEdge.setData(tempValue);
                 }
             }
 
             //reverse edge value from the residual graph for the given edge
-            vertex = (Vertex)inputGraph.get(v);
-            linkedList = vertex.incidentEdgeList;
-            it = (Iterator)linkedList.iterator();
-            while(it.hasNext())
+            theVertex = (Vertex)theInputGraph.get(v);
+            theLinkedList = theVertex.incidentEdgeList;
+            theIterator = (Iterator)theLinkedList.iterator();
+            while(theIterator.hasNext())
             {
-                Edge edge = (Edge)it.next();
-                Vertex secondVertex = (Vertex)edge.getSecondEndpoint();
-                String secondVertexName = (String)secondVertex.getName();
-                if(secondVertexName.equalsIgnoreCase(u))
+                Edge theEdge = (Edge)theIterator.next();
+                Vertex theSecondVertex = (Vertex)theEdge.getSecondEndpoint();
+                String theSecondVertexName = (String)theSecondVertex.getName();
+                if(theSecondVertexName.equalsIgnoreCase(u))
                 {
-                    int tempVal = (int)edge.getData();
-                    tempVal += val;
-                    edge.setData(tempVal);
+                    int tempValue = (int)theEdge.getData();
+                    tempValue += theValue;
+                    theEdge.setData(tempValue);
                 }
             }
         }
@@ -136,22 +162,22 @@ public class FordFulkerson {
     }
 
     //the following function retrieves the forward edge value of the give edge from the residual graph
-    public static int getResValue(String u, String v, Hashtable inputGraph)
+    public static int getResidualValues(String u, String v, Hashtable theInputGraph)
     {
-        int value = 0;
+        int theValue = 0;
         try
         {
-            Vertex vertex = (Vertex)inputGraph.get(u);
-            LinkedList linkedList = vertex.incidentEdgeList;
-            Iterator it = (Iterator)linkedList.iterator();
+            Vertex theVertex = (Vertex)theInputGraph.get(u);
+            LinkedList theLinkedList = theVertex.incidentEdgeList;
+            Iterator it = (Iterator)theLinkedList.iterator();
             while(it.hasNext())
             {
-                Edge edge = (Edge)it.next();
-                Vertex secondVertex = (Vertex)edge.getSecondEndpoint();
-                String secondVertexName = (String)secondVertex.getName();
-                if(secondVertexName.equalsIgnoreCase(v))
+                Edge theEdge = (Edge)it.next();
+                Vertex theSecondVertex = (Vertex)theEdge.getSecondEndpoint();
+                String theSecondVertexName = (String)theSecondVertex.getName();
+                if(theSecondVertexName.equalsIgnoreCase(v))
                 {
-                    value = (Integer) edge.getData();
+                    theValue = (Integer) theEdge.getData();
                     break;
                 }
             }
@@ -159,18 +185,18 @@ public class FordFulkerson {
         catch(Exception e)
         {
             e.printStackTrace();
-            value = 0;
+            theValue = 0;
         }
-        return value;
+        return theValue;
     }
 
 
     //the following function retrieves all the vertices of the generated graph
-    public static void getVertices(Hashtable inputGraph)
+    public static void getAllVertices(Hashtable theInputGraph)
     {
         try
         {
-            for(Enumeration en=inputGraph.keys();en.hasMoreElements();)
+            for(Enumeration en=theInputGraph.keys();en.hasMoreElements();)
             {
                 vertices.add((String)en.nextElement());
             }
@@ -181,21 +207,37 @@ public class FordFulkerson {
         }
     }
 
-    public static int calculateMaxFlow(SimpleGraph sg) {
-        return calculateMaxFlow(sg, "s", "t");
+    // helper method
+    public static String calculateMaxFlow(SimpleGraph theSimpleGraph)
+    {
+        return calculateMaxFlow(theSimpleGraph, "s", "t");
     }
-    public static int calculateMaxFlow(SimpleGraph sg, String s, String t) {
+
+    // calculates the maximum flow
+    public static String calculateMaxFlow(SimpleGraph theSimpleGraph, String theSource, String theSink) {
         int maxflow = 0;
-        LinkedList<Vertex> V = sg.vertexList;
-        Hashtable hash = new Hashtable<>();
+
+        // these will store the start time and the end time to compute a final running time
+        long start, stop;
+
+        // Current time at the start of finding maxflow
+        start = System.currentTimeMillis();
+
+        LinkedList<Vertex> V = theSimpleGraph.vertexList;
+        Hashtable theHashValue = new Hashtable<>();
+
         for (Vertex v : V) {
-            hash.put(v.getName(), v);
+            theHashValue.put(v.getName(), v);
         }
 
-        source = s;
-        sink = t;
-        maxflow = computeMaxFlow(hash);
-        return maxflow;
+        source = theSource;
+        sink = theSink;
+        maxflow = theMaximumFlow(theHashValue);
+
+        // Current Time at the end of finding maxFlow
+        stop = System.currentTimeMillis();
+
+        return "Runtime: " + (stop - start) + " ms" + "	Max Flow: " + maxflow;
     }
 }
 
