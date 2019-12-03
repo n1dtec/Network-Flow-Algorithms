@@ -52,31 +52,31 @@ public class ScalingFordFulkerson {
                 break;
             }
         }
-        ArrayList list = new ArrayList();
-        ArrayList flist = new ArrayList();
-        ArrayList last = new ArrayList();
+        ArrayList<Vertex> list = new ArrayList<>();
+        ArrayList<Integer> flist = new ArrayList<>();
+        ArrayList<Integer> last = new ArrayList<Integer>();
         ArrayList edges = new ArrayList();
-        Hashtable visited = new Hashtable();
+        Hashtable<Object, Vertex> visited = new Hashtable<Object, Vertex>();
         list.add(s);
         flist.add(Integer.MAX_VALUE);
         last.add(-1);
         edges.add(new Object());
         visited.put(s.getName(), s);
         for (int i = 0; i < list.size(); ++i) {
-            Vertex v = (Vertex) list.get(i);
+            Vertex v = list.get(i);
             boolean find = false;
             for (Iterator ite = v.incidentEdgeList.iterator(); ite.hasNext();) {
                 Edge e = (Edge) ite.next();
                 Vertex u = e.getSecondEndpoint();
-                Vertex next = (Vertex) visited.get(u.getName());
+                Vertex next = visited.get(u.getName());
                 if (next == null && (Integer) e.getData() >= d) {
                     list.add(u);
-                    flist.add(Integer.min((Integer) flist.get(i), (Integer) e.getData()));
+                    flist.add(Integer.min(flist.get(i), (Integer) e.getData()));
                     edges.add(e);
                     last.add(i);
                     visited.put(u.getName(), u);
                     if (u.getName().equals(sink)) {
-                        flow = Integer.min((Integer) flist.get(i), (Integer) e.getData());
+                        flow = Integer.min(flist.get(i), (Integer) e.getData());
                         find = true;
                         break;
                     }
@@ -89,9 +89,9 @@ public class ScalingFordFulkerson {
         }
         //update the response graph
         for (int i = list.size() - 1; i != 0;) {
-            int j = (Integer) last.get(i);
-            Vertex u = (Vertex) list.get(i);
-            Vertex v = (Vertex) list.get(j);
+            int j = last.get(i);
+            Vertex u = list.get(i);
+            Vertex v = list.get(j);
             Edge e = (Edge) edges.get(i);
             graph.insertEdge(u, v, flow, null);
             e.setData((Integer) e.getData() - flow);

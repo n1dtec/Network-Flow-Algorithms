@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/*
+ * Authors : Harnidh Kaur
+ *           Fares Tabet
+ * Description : Driver class for preflow push algorithm implementation
+ */
+
 public class PreFlowPush {
     static String s;
     static String t;
