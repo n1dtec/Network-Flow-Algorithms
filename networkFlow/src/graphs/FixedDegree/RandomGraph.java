@@ -4,6 +4,9 @@ package graphs.FixedDegree;//Zane,Yogi,Nick,Jodie
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class RandomGraph {
 	

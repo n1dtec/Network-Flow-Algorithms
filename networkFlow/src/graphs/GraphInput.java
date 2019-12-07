@@ -4,6 +4,10 @@ package graphs; /**
  * Modified by Donald Chinn December 11, 2003.
  */
 
+import java.io.BufferedReader;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+
 /**
  * A class that can read a graph (in a specific format) from a file.
  * 
@@ -41,7 +45,7 @@ public class GraphInput {
      * @returns  a hash table of (String, Vertex) pairs
      */
     public static Hashtable LoadSimpleGraph(SimpleGraph newgraph, String pathandfilename){
-        BufferedReader  inbuf = InputLib.fopen(pathandfilename);
+        BufferedReader inbuf = InputLib.fopen(pathandfilename);
         System.out.println("Opened " + pathandfilename + " for input.");
         String  line = InputLib.getLine(inbuf); // get first line
         StringTokenizer sTok;

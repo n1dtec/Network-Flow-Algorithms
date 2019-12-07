@@ -5,6 +5,10 @@ package graphs;
  * Modified by Donald Chinn December 11, 2003.
  */
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 /**
  * A class that represents a graph.
  *

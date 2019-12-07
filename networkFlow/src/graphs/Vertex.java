@@ -5,6 +5,8 @@ package graphs;
  * Modified by Donald Chinn December 11, 2003.
  */
 
+import java.util.LinkedList;
+
 /**
  * Class that represents a vertex in a graph.
  * A name (usually a string, but it can be an arbitrary object)

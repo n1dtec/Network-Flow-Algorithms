@@ -4,6 +4,8 @@ import graphs.Edge;
 import graphs.SimpleGraph;
 import graphs.Vertex;
 
+import java.util.*;
+
 // COURSE: TCSS 543
 // INSTRUCTOR: KA YEE YEUNG
 // ASSIGNMENT: Final Project
@@ -95,7 +97,7 @@ public class FordFulkerson {
                 // the element at the top of the queue
                 String theHead = (String)theQueue.poll();
 
-                for(Enumeration en = theInputGraph.keys();en.hasMoreElements();)
+                for(Enumeration en = theInputGraph.keys(); en.hasMoreElements();)
                 {
                     String key = (String)en.nextElement();
                     if((boolean)theVisitedNodes.get(key)==false && getResidualValues(theHead,key,theInputGraph) > 0)

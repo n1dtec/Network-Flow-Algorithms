@@ -1,5 +1,7 @@
 package graphs.Bipartite;
 
+import java.io.*;
+
 public class BipartiteGraph
 {
 	public static void main(String[] args) throws Exception
@@ -89,7 +91,7 @@ public class BipartiteGraph
 	}
 
 	//helper functions
-	public static String GetString() throws IOException 
+	public static String GetString() throws IOException
 	{
 		BufferedReader stringIn = new BufferedReader (new
 			InputStreamReader(System.in));

@@ -1,5 +1,10 @@
 package graphs;// Figures A.5-A.6
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class InputLib {
     static class InputError extends Error {
         public InputError(String s) {
