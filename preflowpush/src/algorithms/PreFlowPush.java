@@ -29,7 +29,7 @@ public class PreFlowPush {
         int flowToBePushed = Integer.min((Integer) e.getData(), excessFlowMap.get(v));
         if (flowToBePushed > 0) {
 
-            // Subrtract the flow leaving from v
+            // Subtract the flow leaving from v
             excessFlowMap.put(v, excessFlowMap.get(v) - flowToBePushed);
             // Add the flow entering w
             excessFlowMap.put(w, excessFlowMap.get(w) + flowToBePushed);
@@ -60,7 +60,7 @@ public class PreFlowPush {
         Vertex t = null;
 
         // Initialization of excessFlowMap and heightMap
-        for (Iterator ite = sg.vertices(); ite.hasNext();) {
+        for (Iterator ite = sg.vertices(); ite.hasNext(); ) {
             Vertex v = (Vertex) ite.next();
             excessFlowMap.put(v, 0);
             if (v.getName().equals("s")) {
@@ -92,7 +92,7 @@ public class PreFlowPush {
 
             Vertex v = adjacentNodes.pop();
             // If node v has excess flow, and is not t(sink)
-            while ( !v.getName().equals("t") && excessFlowMap.get(v) > 0 ) {
+            while (!v.getName().equals("t") && excessFlowMap.get(v) > 0) {
                 boolean skipRelabel = false;
                 int minHeight = Integer.MAX_VALUE;
                 for (Object o : v.incidentEdgeList) {
@@ -113,7 +113,7 @@ public class PreFlowPush {
                     }
                 }
                 //relabel if adjacent edges don't have capacity
-                if ( !skipRelabel && excessFlowMap.get(v) > 0 ) {
+                if (!skipRelabel && excessFlowMap.get(v) > 0) {
                     relabel(heightMap, v, minHeight);
                 }
             }

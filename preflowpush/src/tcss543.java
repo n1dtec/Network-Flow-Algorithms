@@ -6,7 +6,9 @@ import graphs.*;
 /*
  * Authors : Harnidh Kaur
  *           Fares Tabet
- * Description : Driver class for preflow push algorithm implementation
+ *           Jingru Zhao
+ *           Richard Brun
+ * Description : Driver class for network flow algorithms implementation
  */
 
 public class tcss543
@@ -15,29 +17,6 @@ public class tcss543
 
         String[] inputs = null;
         inputs = new String[] { args[0] };
-//        if (args.length == 0) {
-//            inputs = new String[] { "-" };
-//        } else if (args.length == 1) {
-//            if (args[0].equals("-all")) {
-//                BufferedReader in = InputLib.fopen("C:\\Users\\harni\\IdeaProjects\\TCSS543-master\\TCSS543-master\\inputs.txt");
-//                String line = InputLib.getLine(in);
-//                StringBuilder all = new StringBuilder();
-//                while (line != null) {
-//                    all.append(line);
-//                    System.out.println(line);
-//                    line = InputLib.getLine(in);
-//                    if (line != null) {
-//                        all.append(';');
-//                    }
-//                }
-//                inputs = all.toString().split(";");
-//            } else {
-//                inputs = new String[] { args[0] };
-//            }
-//        } else {
-//            System.out.println("Invalid arguments");
-//            return;
-//        }
 
         for (String input : inputs) {
             String source = null, sink = null;
